@@ -37,7 +37,8 @@ CORS_ORIGIN_WHITELIST = ['http://localhost:3000'] #아까 설치한 corsheaders�
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        #'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
@@ -46,37 +47,62 @@ REST_FRAMEWORK = {
 }
 
 
+
 INSTALLED_APPS = [
+    # django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'corsheaders',
-    'accounts',
-    #django-rest-auth
+
+    # third apps
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_framework_simplejwt.token_blacklist',
+    'rest_framework_simplejwt.token_blacklist',     # RefreshToken을 따로 DB에 저장?
     'dj_rest_auth',
     'dj_rest_auth.registration',
 
+    #django-allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # local apps
+    'accounts',
+    'instagram',
 ]
 
+# https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+AUTH_USER_MODEL = 'accounts.User'
+
+ACCOUNT_ADAPTER = 'accounts.adapter.CustomAccountAdapter'
+
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
+
+}
+
 
 REST_USE_JWT = True
 from datetime import timedelta
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-    'ROTATE_REFRESH_TOKENS': False,
+    'ROTATE_REFRESH_TOKENS': True,  #https://medium.com/chanjongs-programming-diary/django-rest-framework-drf-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-jwt-%EA%B8%B0%EB%B0%98-authentication-%EC%84%B8%ED%8C%85%ED%95%98%EA%B8%B0-with-simplejwt-blacklist-%EA%B8%B0%EB%B2%95%EC%9C%BC%EB%A1%9C-%EB%B3%B4%EC%95%88-7db20665ee78
     'BLACKLIST_AFTER_ROTATION': True,
 }
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',     # 추가
