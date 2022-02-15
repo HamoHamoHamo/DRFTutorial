@@ -38,6 +38,7 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
+    
 
 
     # 헬퍼 클래스 사용
@@ -47,13 +48,8 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'username'
     # 필수로 작성해야하는 field
 
-    @property
-    def is_superuser(self):
-        return self.is_admin
-
-    @property
-    def is_staff(self):
-        return self.is_admin
+    class Meta:
+        db_table = 'auth_user'
 
     def has_perm(self, perm, obj=None):
         return self.is_admin

@@ -32,13 +32,42 @@ APPEND_SLASH = False # 추가 안해줄시 기본값이 True인데 그 경우 ur
 #이 경우 문제가 될 수 있기때문에 false로 값을 지정해줬다.
 # Application definition
 
-CORS_ORIGIN_WHITELIST = ['http://localhost:3000'] #아까 설치한 corsheaders로 해당 서버와 연결할 서버의 url을 작성해준모습
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000', 
+    'http://127.0.0.1:3000'
+ ) #아까 설치한 corsheaders로 해당 서버와 연결할 서버의 url을 작성해준모습
+# CORS_ALLOW_CREDENTIALS = True
 
+# CSRF_COOKIE_NAME = "csrftoken"
+# CSRF_COOKIE_HTTPONLY = False
+
+# CSRF_TRUSTED_ORIGINS = (
+#     'localhost:8000',
+#     '127.0.0.1:8000',
+# )
+# CORS_ALLOW_HEADERS = [
+#     'accept',
+#     'accept-encoding',
+#     'authorization',
+#     'content-type',
+#     'dnt',
+#     'origin',
+#     'user-agent',
+#     'x-csrftoken',
+#     'x-requested-with',
+#     'Access-Control-Allow-Origin',
+# ]
+
+# from corsheaders.defaults import default_headers
+
+# CORS_ALLOW_HEADERS = list(default_headers) + [
+#     'X-CSRFTOKEN',
+# ]
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        #'rest_framework.permissions.IsAuthenticated',
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',
+        #'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
@@ -73,7 +102,7 @@ INSTALLED_APPS = [
 
     # local apps
     'accounts',
-    'instagram',
+    'check'
 ]
 
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
@@ -99,7 +128,7 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': True,  #https://medium.com/chanjongs-programming-diary/django-rest-framework-drf-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-jwt-%EA%B8%B0%EB%B0%98-authentication-%EC%84%B8%ED%8C%85%ED%95%98%EA%B8%B0-with-simplejwt-blacklist-%EA%B8%B0%EB%B2%95%EC%9C%BC%EB%A1%9C-%EB%B3%B4%EC%95%88-7db20665ee78
-    'BLACKLIST_AFTER_ROTATION': True,
+    'BLACKLIST_AFTER_ROTATION': False,
 }
 
 SITE_ID = 1

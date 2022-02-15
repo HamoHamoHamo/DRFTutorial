@@ -1,4 +1,4 @@
-#!/home/hamo/link-HR/.venv/bin/python3
+#!/home/hamo/link-HR/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
