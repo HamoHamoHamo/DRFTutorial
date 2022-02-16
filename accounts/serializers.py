@@ -1,5 +1,6 @@
 from .models import User
 from rest_framework import serializers
+# from check.serializers import CheckUserAttendanceSerializer
 from dj_rest_auth.registration.serializers import RegisterSerializer
 
 class CustomRegisterSerializer(RegisterSerializer):
@@ -23,8 +24,17 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username', 'password', 'name']
 
-class UserProfileSerializer(serializers.ModelSerializer):
+class UserNameSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = User
-        fields = ['username', 'name']
+        fields = ['name']
+
+# class UserAttendanceSerializer(serializers.ModelSerializer):
+#     # fk 참조할때는 related_name으로 field이름 적어줘야 되는듯
+#     attendance = CheckUserAttendanceSerializer(many=True)
+    
+#     class Meta:
+#         model = User
+#         fields = ['name', 'attendance']
 

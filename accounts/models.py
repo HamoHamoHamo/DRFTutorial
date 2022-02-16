@@ -59,4 +59,4 @@ class User(AbstractBaseUser):
 
 
     def __str__(self):
-        return self.username
+        return self.name
