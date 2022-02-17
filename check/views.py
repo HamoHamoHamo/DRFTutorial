@@ -13,6 +13,8 @@ from rest_framework import viewsets
 
 from datetime import datetime
 
+from check import serializers
+
 
 
 @api_view(['POST'])
@@ -34,10 +36,12 @@ def check(request):
     return Response(serializer.data)
 
 class AttendanceListAPIView(generics.ListAPIView):
-    today = str(datetime.now())[:10]
     serializer_class = AttendanceListSerializer
-    queryset = Attendance.objects.filter(datetime__contains=today).order_by("user")
+    
 
+    def get_queryset(self):
+        queryset = Attendance.objects.filter(datetime__contains=self.kwargs['month']).order_by("user", "datetime")
+        return queryset
 
 @api_view(['get'])
 def profile(request):
@@ -48,3 +52,7 @@ def profile(request):
     # print("serializer", serializer)
     
     return Response(serializer.data)
+
+class AttendanceDestroyAPIView(generics.DestroyAPIView):
+    serializers = CheckUserAttendanceSerializer
+    queryset = Attendance.objects.all()

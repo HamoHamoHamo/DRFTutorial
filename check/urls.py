@@ -4,7 +4,8 @@ from check import views
 
 urlpatterns = [
     path('', views.check),
-    path('list/', views.AttendanceListAPIView.as_view()),
+    path('monthly/<str:month>', views.AttendanceListAPIView.as_view()),
     path('profile/', views.profile),
+    path('<int:pk>/', views.AttendanceDestroyAPIView.as_view()),
     # path('csrftoken/', views.EnsureCsrf.as_view(), name="csrf"),
 ]

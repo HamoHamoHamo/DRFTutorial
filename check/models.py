@@ -8,3 +8,7 @@ class Attendance(models.Model):
     datetime = models.CharField(verbose_name="체크시간", max_length=16, null=True, blank=True)
     ip = models.CharField(verbose_name="아이피", max_length=20,  null=False)
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name='등록시간')
+
+    
+    def __str__(self):
+        return self.user.name + ' ' + self.datetime
