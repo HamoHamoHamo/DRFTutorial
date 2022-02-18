@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #SECRET_KEY = 'django-insecure-t%cqm)@qizgkkl=!rqut59qmc@wlfm9a8o&hddt2m5k_dj=gp5'
 SECRET_KEY = my_settings.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['34.64.102.231']
 
 APPEND_SLASH = False # 추가 안해줄시 기본값이 True인데 그 경우 urls.py에서 경로설정시 주소 끝에 /를 붙이고 
 #해당경로로 /를 붙이지 않고 접속시 페이지를 찾을 수 없기때문에 리다이렉트를 시켜 자동으로 /를 붙여서 경로를 찾는다.
@@ -33,10 +33,11 @@ APPEND_SLASH = False # 추가 안해줄시 기본값이 True인데 그 경우 ur
 # Application definition
 
 CORS_ORIGIN_WHITELIST = (
+    'http://34.64.102.231',
     'http://localhost:3000', 
-    'http://127.0.0.1:3000'
+    'http://127.0.0.1:3000',
  ) #아까 설치한 corsheaders로 해당 서버와 연결할 서버의 url을 작성해준모습
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True
 
 # CSRF_COOKIE_NAME = "csrftoken"
 # CSRF_COOKIE_HTTPONLY = False
@@ -70,7 +71,7 @@ REST_FRAMEWORK = {
         #'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
+        #'rest_framework.authentication.SessionAuthentication',
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ),
 }
@@ -135,9 +136,9 @@ SITE_ID = 1
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',     # 추가
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',

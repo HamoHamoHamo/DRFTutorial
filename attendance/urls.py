@@ -7,12 +7,12 @@ from django.urls import include
 
 
 urlpatterns = [
-   path('admin/', admin.site.urls),
-   path('', include('dj_rest_auth.urls')),
-   path('', include('allauth.urls')),
-   path('registration/', include('dj_rest_auth.registration.urls')),
-   path('accounts/', include('accounts.urls')),
-   path('check/', include('check.urls'))
+   path('api/admin/', admin.site.urls),
+   path('api/', include('dj_rest_auth.urls')),
+   path('api/', include('allauth.urls')),
+   path('api/registration/', include('dj_rest_auth.registration.urls')),
+   path('api/accounts/', include('accounts.urls')),
+   path('api/check/', include('check.urls'))
 ]
 
 if settings.DEBUG:
